@@ -1,0 +1,1 @@
+A secure valut to store files and share it with protected password.
