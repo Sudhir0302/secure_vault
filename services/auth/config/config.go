@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Sudhir0302/secure_vault.git/services/auth/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -32,4 +33,5 @@ func Load() {
 	}
 	DB = db
 	fmt.Println("db connected")
+	db.AutoMigrate(&models.User{})
 }
