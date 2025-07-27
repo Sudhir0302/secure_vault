@@ -12,3 +12,12 @@ func Create(user *models.User) (*models.User, error) {
 	}
 	return user, nil
 }
+
+func FindUser(email string) (*models.User, error) {
+	user := models.User{}
+	res := config.DB.Where("email=?", email).Find(&user)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+	return &user, nil
+}
