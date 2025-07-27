@@ -15,7 +15,7 @@ var DB *gorm.DB
 
 func Load() {
 	//loads env values from .env file and stores it in the process's env memory (temp memory)
-	godotenv.Load("../.env")
+	godotenv.Load("../.env.auth")
 	host := os.Getenv("DB_HOST")
 	user := os.Getenv("DB_USER")
 	pass := os.Getenv("DB_PASSWORD")
