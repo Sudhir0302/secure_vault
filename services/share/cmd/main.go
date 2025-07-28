@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/Sudhir0302/secure_vault.git/services/share/config"
+	"github.com/Sudhir0302/secure_vault.git/services/share/routes"
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
 	fmt.Println("share-service")
+	config.Load()
+	app := gin.New()
+
+	routes.ConfigRoutes(app)
 }
