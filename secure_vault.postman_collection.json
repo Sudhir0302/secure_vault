@@ -1,0 +1,261 @@
+{
+  "info": {
+    "_postman_id": "mocked-id-1234-5678",
+    "name": "secure_vault_mock",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "mocked-exporter-id"
+  },
+  "item": [
+    {
+      "name": "auth-service",
+      "item": [
+        {
+          "name": "test",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/test",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["test"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"sampleuser\",\n    \"password\":\"samplepass\",\n    \"email\":\"user@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/signup",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "signin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"user@example.com\",\n    \"password\":\"samplepass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/signin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["signin"],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "user@example.com",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "storage-service",
+      "item": [
+        {
+          "name": "test",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"sampleuser\",\n    \"password\":\"samplepass\",\n    \"email\":\"user@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/test",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["test"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "upload",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "userid",
+                  "value": "mock-user-id-1234",
+                  "type": "text"
+                },
+                {
+                  "key": "filename",
+                  "value": "samplefile",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8081/upload",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getfile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "mock.jwt.token.sample123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/getfile?userid=mock-user-id-1234&file_id=mock-file-id-5678",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["api", "getfile"],
+              "query": [
+                {
+                  "key": "userid",
+                  "value": "mock-user-id-1234"
+                },
+                {
+                  "key": "file_id",
+                  "value": "mock-file-id-5678"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "share-service",
+      "item": [
+        {
+          "name": "test",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/test",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["test"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addshare",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"file_id\":\"mock-file-id-5678\",\n    \"user_id\":\"mock-user-id-1234\",\n    \"password\":\"mockpass\",\n    \"expiry_days\":1,\n    \"download_limit\":2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/addshare",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["api", "addshare"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getshare",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "mock.jwt.token.sample123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/getshare?share_link=mockShare123&password=mockpass",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["api", "getshare"],
+              "query": [
+                {
+                  "key": "share_link",
+                  "value": "mockShare123"
+                },
+                {
+                  "key": "password",
+                  "value": "mockpass"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
