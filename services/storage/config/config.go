@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Sudhir0302/secure_vault.git/services/storage/models"
+	"github.com/Sudhir0302/secure_vault/services/storage/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

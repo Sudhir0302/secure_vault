@@ -1,8 +1,8 @@
 package repo
 
 import (
-	"github.com/Sudhir0302/secure_vault.git/services/storage/config"
-	"github.com/Sudhir0302/secure_vault.git/services/storage/models"
+	"github.com/Sudhir0302/secure_vault/services/storage/config"
+	"github.com/Sudhir0302/secure_vault/services/storage/models"
 )
 
 func Store(store *models.Storage) (*models.Storage, error) {

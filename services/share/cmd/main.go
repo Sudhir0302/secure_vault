@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/Sudhir0302/secure_vault.git/services/share/config"
-	"github.com/Sudhir0302/secure_vault.git/services/share/routes"
+	"github.com/Sudhir0302/secure_vault/services/share/config"
+	"github.com/Sudhir0302/secure_vault/services/share/routes"
 	"github.com/gin-gonic/gin"
 )
 

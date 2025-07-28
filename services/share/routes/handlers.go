@@ -5,8 +5,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/Sudhir0302/secure_vault.git/services/share/models"
-	"github.com/Sudhir0302/secure_vault.git/services/share/repo"
+	"github.com/Sudhir0302/secure_vault/services/share/models"
+	"github.com/Sudhir0302/secure_vault/services/share/repo"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	gonanoid "github.com/matoous/go-nanoid/v2"

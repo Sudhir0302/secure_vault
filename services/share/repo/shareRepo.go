@@ -1,8 +1,8 @@
 package repo
 
 import (
-	"github.com/Sudhir0302/secure_vault.git/services/share/config"
-	"github.com/Sudhir0302/secure_vault.git/services/share/models"
+	"github.com/Sudhir0302/secure_vault/services/share/config"
+	"github.com/Sudhir0302/secure_vault/services/share/models"
 )
 
 func Create(share *models.Share) (*models.Share, error) {

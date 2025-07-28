@@ -5,9 +5,9 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/Sudhir0302/secure_vault.git/services/storage/models"
-	"github.com/Sudhir0302/secure_vault.git/services/storage/repo"
-	"github.com/Sudhir0302/secure_vault.git/services/storage/utils"
+	"github.com/Sudhir0302/secure_vault/services/storage/models"
+	"github.com/Sudhir0302/secure_vault/services/storage/repo"
+	"github.com/Sudhir0302/secure_vault/services/storage/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )

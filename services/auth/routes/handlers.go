@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"github.com/Sudhir0302/secure_vault.git/services/auth/models"
-	"github.com/Sudhir0302/secure_vault.git/services/auth/repo"
-	"github.com/Sudhir0302/secure_vault.git/services/auth/utils"
+	"github.com/Sudhir0302/secure_vault/services/auth/models"
+	"github.com/Sudhir0302/secure_vault/services/auth/repo"
+	"github.com/Sudhir0302/secure_vault/services/auth/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
