@@ -26,6 +26,7 @@ func UploadFile(c *gin.Context) {
 
 	userid := c.DefaultPostForm("userid", "")
 	filename := c.DefaultPostForm("filename", "")
+	filesize := header.Size
 	mimetype := header.Header.Get("Content-Type")
 
 	data, err := io.ReadAll(file)
@@ -40,6 +41,7 @@ func UploadFile(c *gin.Context) {
 		ID:            uuid.New(),
 		Userid:        uuid.MustParse(userid),
 		FileName:      filename,
+		FileSize:      filesize,
 		Mime_type:     mimetype,
 		EncryptedData: enc,
 	}
