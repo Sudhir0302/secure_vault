@@ -13,9 +13,9 @@ func Store(store *models.Storage) (*models.Storage, error) {
 	return store, nil
 }
 
-func GetFile(userid string, filename string) (*models.Storage, error) {
+func GetFile(userid string, fileid string) (*models.Storage, error) {
 	data := &models.Storage{}
-	res := config.DB.Where("userid=? and file_name=?", userid, filename).Find(&data)
+	res := config.DB.Where("userid=? and id=?", userid, fileid).Find(&data)
 	if res.Error != nil {
 		return nil, res.Error
 	}

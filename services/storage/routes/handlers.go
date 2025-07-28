@@ -57,16 +57,16 @@ func UploadFile(c *gin.Context) {
 
 func GetFile(c *gin.Context) {
 	type body struct {
-		Userid   string `json:"userid"`
-		Filename string `json:"file_name"`
+		Userid string `json:"userid"`
+		FileId string `json:"file_id"`
 	}
 	reqdata := &body{
-		Userid:   c.Query("userid"),
-		Filename: c.Query("file_name"),
+		Userid: c.Query("userid"),
+		FileId: c.Query("file_id"),
 	}
 	fmt.Println(reqdata)
 
-	res, err := repo.GetFile(reqdata.Userid, reqdata.Filename)
+	res, err := repo.GetFile(reqdata.Userid, reqdata.FileId)
 	if err != nil || res == nil {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "file not found"})
 		return
