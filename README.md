@@ -39,7 +39,7 @@ Manages secure file sharing with expiry and download limits.
 
 ## Postman Collection
 
-You can test all API endpoints using the provided [Postman collection](https://github.com/Sudhir0302/secure_vault).
+You can test all API endpoints using the provided [Postman collection](https://github.com/Sudhir0302/secure_vault/tree/main/docs/secure_vault.postman_collection.json).
 
 ## Getting Started
 
@@ -61,6 +61,20 @@ go run main.go
 ```
 
 (Repeat this inside each service directory.)
+
+<h2>Schema</h2>
+<img src="docs/schema.png" alt="Secure Vault Architecture" width="600"/>
+
+## TODO
+
+- [ ] Develop API Gateway service to route and authenticate requests between services
+- [ ] Implement rate limiting for public endpoints
+- [ ] Add unit and integration tests
+- [ ] Dockerize all services for containerized deployment
+- [ ] Implement user roles and access control
+- [ ] Add frontend for user interaction
+
+
 
 ## License
 

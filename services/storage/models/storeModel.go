@@ -13,6 +13,6 @@ type Storage struct {
 	FileName      string    `json:"file_name"`
 	FileSize      int64     `json:"file_size"`
 	Mime_type     string    `json:"mime_type"`
-	EncryptedData []byte    `json:"file_path"`
+	EncryptedData []byte    `json:"encrypted_data"`
 	UploadedAt    time.Time `json:"uploaded_at"`
 }
