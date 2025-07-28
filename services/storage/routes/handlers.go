@@ -3,9 +3,13 @@ package routes
 import (
 	"fmt"
 	"io"
+	"net/http"
 
+	"github.com/Sudhir0302/secure_vault.git/services/storage/models"
+	"github.com/Sudhir0302/secure_vault.git/services/storage/repo"
 	"github.com/Sudhir0302/secure_vault.git/services/storage/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func Test(c *gin.Context) {
@@ -14,15 +18,74 @@ func Test(c *gin.Context) {
 
 func UploadFile(c *gin.Context) {
 	file, header, err := c.Request.FormFile("file")
-	// filetype := header.Header["Content-Type"]
-	// fmt.Printf("%T", filetype)
-
 	if err != nil || file == nil || header == nil {
-		c.JSON(400, gin.H{"msg": "file not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "file not found"})
 		return
 	}
 	defer file.Close()
-	data, _ := io.ReadAll(file)
+
+	userid := c.DefaultPostForm("userid", "")
+	filename := c.DefaultPostForm("filename", "")
+	mimetype := header.Header.Get("Content-Type")
+
+	data, err := io.ReadAll(file)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "failed to read file"})
+		return
+	}
+
 	enc := utils.Encrypt(data)
-	fmt.Println(enc)
+
+	store := &models.Storage{
+		ID:            uuid.New(),
+		Userid:        uuid.MustParse(userid),
+		FileName:      filename,
+		Mime_type:     mimetype,
+		EncryptedData: enc,
+	}
+
+	res, err := repo.Store(store)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "failed to store in db"})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"msg": "file uploaded", "data": res})
+}
+
+func GetFile(c *gin.Context) {
+	type body struct {
+		Userid   string `json:"userid"`
+		Filename string `json:"file_name"`
+	}
+	reqdata := &body{
+		Userid:   c.Query("userid"),
+		Filename: c.Query("file_name"),
+	}
+	fmt.Println(reqdata)
+
+	res, err := repo.GetFile(reqdata.Userid, reqdata.Filename)
+	if err != nil || res == nil {
+		c.JSON(http.StatusNotFound, gin.H{"msg": "file not found"})
+		return
+	}
+
+	dec := utils.Decrypt(res.EncryptedData)
+	if dec == nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "failed to decrypt file"})
+		return
+	}
+
+	filename := res.FileName
+	mime := res.Mime_type
+
+	//add file extension
+	if mime == "application/pdf" {
+		filename += ".pdf"
+	} else if mime == "text/plain" {
+		filename += ".txt"
+	}
+
+	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", filename))
+	c.Data(http.StatusOK, res.Mime_type, dec)
 }
