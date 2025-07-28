@@ -13,10 +13,21 @@ func Create(share *models.Share) (*models.Share, error) {
 	return share, nil
 }
 
-func GetFile(reqbody *models.Share, sharelink string, password string) (*models.Share, error) {
+func GetFile(reqbody *models.Share, sharelink string, password string) (int64, error) {
 	res := config.DB.Where("share_link=? and password=?", sharelink, password).Find(&reqbody)
 	if res.Error != nil {
-		return nil, res.Error
+		return 0, res.Error
 	}
-	return reqbody, nil
+	return res.RowsAffected, nil
+}
+
+func DecreLimit(share *models.Share) error {
+	// .Model(&models.Share{}) tells GORM what table to use.
+	res := config.DB.Model(&models.Share{}).Where("id=?", share.ID).Update("download_limit", share.DownloadLimit)
+	return res.Error
+}
+
+func Delete(share *models.Share) error {
+	res := config.DB.Model(&models.Share{}).Delete("id=?", share.ID)
+	return res.Error
 }

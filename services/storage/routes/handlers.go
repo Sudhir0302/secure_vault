@@ -89,5 +89,7 @@ func GetFile(c *gin.Context) {
 	}
 
 	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", filename))
+
+	//c.Data means sending a raw binary or byte slice response to the client
 	c.Data(http.StatusOK, res.Mime_type, dec)
 }

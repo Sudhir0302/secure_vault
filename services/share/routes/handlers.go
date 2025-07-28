@@ -58,10 +58,24 @@ func GetShare(c *gin.Context) {
 	password := c.Query("password")
 
 	reqbody := &models.Share{}
-	_, err := repo.GetFile(reqbody, sharelink, password)
+	res, err := repo.GetFile(reqbody, sharelink, password)
 
-	if err != nil {
+	if err != nil || res == 0 {
 		c.JSON(404, gin.H{"msg": "link not found"})
+		return
+	}
+	reqbody.DownloadLimit -= 1
+	if reqbody.DownloadLimit == 0 {
+		err = repo.Delete(reqbody)
+		if err != nil {
+			c.JSON(500, gin.H{"msg": "error while deleting"})
+			return
+		}
+	}
+	//dec downloadlimit
+	err = repo.DecreLimit(reqbody)
+	if err != nil {
+		c.JSON(500, gin.H{"msg": "cannot decrement download limit"})
 		return
 	}
 
