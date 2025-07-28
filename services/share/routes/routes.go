@@ -1,12 +1,20 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Sudhir0302/secure_vault.git/services/share/middlewares"
+	"github.com/gin-gonic/gin"
+)
 
 func ConfigRoutes(app *gin.Engine) {
 
 	app.GET("/test", Test)
-	app.POST("/addshare", AddShare)
-	app.GET("/getshare", GetShare)
+
+	auth := app.Group("/api")
+	auth.Use(middlewares.Verify())
+	{
+		auth.POST("/addshare", AddShare)
+		auth.GET("/getshare", GetShare)
+	}
 
 	app.Run(":8082")
 }

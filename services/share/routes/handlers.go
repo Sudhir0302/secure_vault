@@ -60,6 +60,8 @@ func GetShare(c *gin.Context) {
 	reqbody := &models.Share{}
 	res, err := repo.GetFile(reqbody, sharelink, password)
 
+	fmt.Println(reqbody, res)
+
 	if err != nil || res == 0 {
 		c.JSON(404, gin.H{"msg": "link not found"})
 		return
@@ -80,12 +82,15 @@ func GetShare(c *gin.Context) {
 	}
 
 	//constructing the storage-service url
-	url := fmt.Sprintf("http://localhost:8081/getfile?userid=%s&file_id=%s", reqbody.UserId.String(), reqbody.FileId.String())
+	url := fmt.Sprintf("http://localhost:8081/api/getfile?userid=%s&file_id=%s", reqbody.UserId.String(), reqbody.FileId.String())
 	// fmt.Println(url)
 
 	// http.Get(`http://localhost:8081/getfile?userid=2e0dd72b-af5d-4a5d-9ec2-770e1b371f9a&file_name=test`)
-	resdata, _ := http.Get(url)
-	// fmt.Println(resdata)
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Set("Authorization", c.Request.Header.Get("Authorization"))
+
+	client := &http.Client{}
+	resdata, _ := client.Do(req)
 
 	//setting the header from resdata
 	c.Header("Content-Disposition", resdata.Header.Get("Content-Disposition"))
